@@ -36,7 +36,6 @@ function DropdownSection() {
   return (
     <section className="dropdown">
       <p>Please select a movie from the dropdown for more information</p>
-      <p>{selectedMovieId}</p>
       <Dropdown
         placeholder="Select a movie"
         fluid
