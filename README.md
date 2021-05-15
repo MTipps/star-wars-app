@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/fcf59b04-9ebe-41b7-a791-a601fac3bb70/deploy-status)](https://app.netlify.com/sites/star-wars-app-mt/deploys)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
