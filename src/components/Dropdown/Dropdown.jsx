@@ -28,9 +28,12 @@ const dummyData = [
 function DropdownSection() {
   const dispatch = useDispatch();
   const selectedMovieId = useSelector((state) => state.selectedMovieId);
+  const movies = dispatch({ type: "getMovies" });
+
+  console.log(movies);
 
   const handleChange = (event, { value }) => {
-    dispatch({ type: "newMovieId", newMovieId: value });
+    dispatch({ type: "newMovieId", movieId: value });
   };
 
   return (
