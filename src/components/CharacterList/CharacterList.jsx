@@ -3,6 +3,13 @@ import { Table } from "semantic-ui-react";
 
 function CharacterListSection(props) {
   const properties = props;
+  // const nameSort = "asc";
+  // const genderSort = "asc";
+  // const heightSort = "asc";
+  // let sortBy = {
+  //   column: "",
+  //   order: "",
+  // };
   const [movieCharacters, setMovieCharacters] = React.useState([]);
   const [heightTotalText, setHeightTotalText] = React.useState("");
 
@@ -22,6 +29,16 @@ function CharacterListSection(props) {
       return `${totalCm}cm (${feet}ft / ${inches}in)`;
     }
 
+    function filterCharacters(characters) {
+      return properties.characterFilter === "all"
+        ? characters
+        : characters.filter((x) => x.gender === properties.characterFilter);
+    }
+
+    function sortCharacters(characters) {
+      return characters.sort((a, b) => a.name - b.name);
+    }
+
     if (selectedMovie.characters !== undefined) {
       let movieCharacterArray = [];
 
@@ -33,16 +50,25 @@ function CharacterListSection(props) {
         }
       });
 
-      movieCharacterArray =
-        properties.characterFilter === "all"
-          ? movieCharacterArray
-          : movieCharacterArray.filter(
-              (x) => x.gender === properties.characterFilter
-            );
+      movieCharacterArray = filterCharacters(movieCharacterArray);
+      movieCharacterArray = sortCharacters(movieCharacterArray);
+
       setMovieCharacters(movieCharacterArray);
       setHeightTotalText(getCharacterHeights(movieCharacterArray));
     }
   }, [properties.selectedMovie, properties.characterFilter]);
+
+  function sortByName() {
+    console.log("SortByName");
+  }
+
+  function sortByGender() {
+    console.log("SortByGender");
+  }
+
+  function sortByHeight() {
+    console.log("SortByHeight");
+  }
 
   return (
     <section>
@@ -52,9 +78,9 @@ function CharacterListSection(props) {
         <Table columns={3} striped>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Name</Table.HeaderCell>
-              <Table.HeaderCell>Gender</Table.HeaderCell>
-              <Table.HeaderCell>Height</Table.HeaderCell>
+              <Table.HeaderCell onClick={sortByName}>Name</Table.HeaderCell>
+              <Table.HeaderCell onClick={sortByGender}>Gender</Table.HeaderCell>
+              <Table.HeaderCell onClick={sortByHeight}>Height</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
 
