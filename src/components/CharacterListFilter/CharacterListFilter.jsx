@@ -1,9 +1,12 @@
 import React from "react";
 import { Form, Checkbox } from "semantic-ui-react";
 
-function CharacterListFilterSection() {
-  // state = {}
-  // handleChange = (e, { value }) +> this.setState({value})
+function CharacterListFilterSection(props) {
+  const properties = props;
+
+  function handleChange(event, { value }) {
+    properties.onChange(value);
+  }
 
   return (
     <section className="character-list-filter">
@@ -15,8 +18,8 @@ function CharacterListFilterSection() {
               label="All"
               name="characterListFilter"
               value="all"
-              // checked={this.state.value === "all"}
-              // onChange={this.handleChange}
+              checked={properties.characterFilter === "all"}
+              onChange={handleChange}
             />
           </Form.Field>
           <Form.Field>
@@ -25,8 +28,8 @@ function CharacterListFilterSection() {
               label="Female"
               name="characterListFilter"
               value="female"
-              // checked={this.state.value === "all"}
-              // onChange={this.handleChange}
+              checked={properties.characterFilter === "female"}
+              onChange={handleChange}
             />
           </Form.Field>
           <Form.Field>
@@ -35,8 +38,8 @@ function CharacterListFilterSection() {
               label="Male"
               name="characterListFilter"
               value="male"
-              // checked={this.state.value === "all"}
-              // onChange={this.handleChange}
+              checked={properties.characterFilter === "male"}
+              onChange={handleChange}
             />
           </Form.Field>
         </Form>

@@ -12,6 +12,7 @@ function App() {
   const [moviesDropdownObject, setMoviesDropDownObject] = React.useState([]);
   const [selectedMovieId, setSelectedMovieId] = React.useState();
   const [openingCrawl, setOpeningCrawl] = React.useState("");
+  const [characterFilter, setCharacterFilter] = React.useState("all");
 
   React.useEffect(() => {
     let unmounted = false;
@@ -51,6 +52,10 @@ function App() {
     fetchMovieInformation(newValue);
   }
 
+  function handleCharacterFilterChange(newValue) {
+    setCharacterFilter(newValue);
+  }
+
   return (
     <div className="app-container">
       <HeaderSection />
@@ -64,7 +69,10 @@ function App() {
         selectedMovieId={selectedMovieId}
         openingCrawl={openingCrawl}
       />
-      <CharacterListFilterSection />
+      <CharacterListFilterSection
+        characterFilter={characterFilter}
+        onChange={handleCharacterFilterChange}
+      />
       <CharacterListSection />
     </div>
   );
