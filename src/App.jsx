@@ -21,10 +21,18 @@ function App() {
     async function getMovies() {
       const response = await fetch("https://swapi.dev/api/films");
       const body = await response.json();
+
       if (!unmounted) {
-        setMoviesObject(body.results);
+        const sortMoviesByReleaseDate = body.results
+          .slice()
+          .sort(
+            (a, b) => Date.parse(a.release_date) - Date.parse(b.release_date)
+          );
+
+        setMoviesObject(sortMoviesByReleaseDate);
+
         setMoviesDropDownObject(
-          body.results.map((movie) => {
+          sortMoviesByReleaseDate.map((movie) => {
             return {
               key: movie.episode_id,
               text: movie.title,
@@ -32,6 +40,7 @@ function App() {
             };
           })
         );
+
         setLoading(false);
       }
     }
