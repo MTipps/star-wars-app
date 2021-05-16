@@ -1,5 +1,4 @@
 import React from "react";
-// import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { Dropdown } from "semantic-ui-react";
 
 function DropdownSection(props) {

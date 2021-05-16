@@ -45,37 +45,45 @@ function CharacterListSection(props) {
   }, [properties.selectedMovie, properties.characterFilter]);
 
   return (
-    <Table columns={3} striped>
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell>Name</Table.HeaderCell>
-          <Table.HeaderCell>Gender</Table.HeaderCell>
-          <Table.HeaderCell>Height</Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
-
-      <Table.Body>
-        {movieCharacters.map(function (character) {
-          return (
+    <section>
+      {movieCharacters.length === 0 ? (
+        <p>No Data</p>
+      ) : (
+        <Table columns={3} striped>
+          <Table.Header>
             <Table.Row>
-              <Table.Cell>{character.name}</Table.Cell>
-              <Table.Cell>{character.gender}</Table.Cell>
-              <Table.Cell>{character.height}</Table.Cell>
+              <Table.HeaderCell>Name</Table.HeaderCell>
+              <Table.HeaderCell>Gender</Table.HeaderCell>
+              <Table.HeaderCell>Height</Table.HeaderCell>
             </Table.Row>
-          );
-        })}
-      </Table.Body>
+          </Table.Header>
 
-      <Table.Footer>
-        <Table.Row>
-          <Table.HeaderCell>
-            Total Characters: {movieCharacters.length}
-          </Table.HeaderCell>
-          <Table.HeaderCell />
-          <Table.HeaderCell>Total Height: {heightTotalText}</Table.HeaderCell>
-        </Table.Row>
-      </Table.Footer>
-    </Table>
+          <Table.Body>
+            {movieCharacters.map(function (character) {
+              return (
+                <Table.Row>
+                  <Table.Cell>{character.name}</Table.Cell>
+                  <Table.Cell>{character.gender}</Table.Cell>
+                  <Table.Cell>{character.height}</Table.Cell>
+                </Table.Row>
+              );
+            })}
+          </Table.Body>
+
+          <Table.Footer>
+            <Table.Row>
+              <Table.HeaderCell>
+                Total Characters: {movieCharacters.length}
+              </Table.HeaderCell>
+              <Table.HeaderCell />
+              <Table.HeaderCell>
+                Total Height: {heightTotalText}
+              </Table.HeaderCell>
+            </Table.Row>
+          </Table.Footer>
+        </Table>
+      )}
+    </section>
   );
 }
 
