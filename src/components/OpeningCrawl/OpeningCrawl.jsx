@@ -1,14 +1,15 @@
 import React from "react";
 import logo from "./logo.png";
 
-function OpeningCrawlSection() {
-  const selectedMovieId = 0;
+function OpeningCrawlSection(props) {
+  const properties = props;
+
   return (
     <section className="opening-crawl">
-      {selectedMovieId === 0 ? (
+      {properties.selectedMovieId === undefined ? (
         <img src={logo} alt="The star wars logo" />
       ) : (
-        <p>Movie text and if nothing is selected then show logo</p>
+        <p>{properties.openingCrawl}</p>
       )}
     </section>
   );
