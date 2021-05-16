@@ -11,8 +11,10 @@ function App() {
   const [moviesObject, setMoviesObject] = React.useState([]);
   const [moviesDropdownObject, setMoviesDropDownObject] = React.useState([]);
   const [selectedMovieId, setSelectedMovieId] = React.useState();
+  const [selectedMovie, setSelectedMovie] = React.useState({});
   const [openingCrawl, setOpeningCrawl] = React.useState("");
   const [characterFilter, setCharacterFilter] = React.useState("all");
+  const [charactersObject, setCharactersObject] = React.useState([]);
 
   React.useEffect(() => {
     let unmounted = false;
@@ -33,7 +35,19 @@ function App() {
         setLoading(false);
       }
     }
+
+    async function getCharacters() {
+      const response = await fetch("https://swapi.dev/api/people");
+      const body = await response.json();
+      if (!unmounted) {
+        setCharactersObject(body.results);
+        setLoading(false);
+      }
+    }
+
     getMovies();
+    getCharacters();
+
     return () => {
       unmounted = true;
     };
@@ -41,8 +55,8 @@ function App() {
 
   function fetchMovieInformation(movieId) {
     const movie = moviesObject.find((x) => x.episode_id === movieId);
-
     if (movie !== undefined) {
+      setSelectedMovie(movie);
       setOpeningCrawl(movie.opening_crawl);
     }
   }
@@ -73,7 +87,10 @@ function App() {
         characterFilter={characterFilter}
         onChange={handleCharacterFilterChange}
       />
-      <CharacterListSection />
+      <CharacterListSection
+        charactersObject={charactersObject}
+        selectedMovie={selectedMovie}
+      />
     </div>
   );
 }
