@@ -90,6 +90,7 @@ function App() {
       <CharacterListSection
         charactersObject={charactersObject}
         selectedMovie={selectedMovie}
+        characterFilter={characterFilter}
       />
     </div>
   );

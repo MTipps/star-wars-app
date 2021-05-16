@@ -10,27 +10,39 @@ function CharacterListSection(props) {
     const { selectedMovie } = properties;
     const allCharacters = properties.charactersObject;
 
+    function getCharacterHeights(characters) {
+      const totalCm = characters.reduce(
+        (a, b) => a + parseInt(b.height, 10),
+        0
+      );
+      let inches = (totalCm * 0.393700787).toFixed(0);
+      const feet = Math.floor(inches / 12);
+      inches %= 12;
+
+      return `${totalCm}cm (${feet}ft / ${inches}in)`;
+    }
+
     if (selectedMovie.characters !== undefined) {
-      const movieCharacterArray = [];
-      let heightCmTotal = 0;
+      let movieCharacterArray = [];
 
       selectedMovie.characters.forEach(function (character) {
         const characterObject = allCharacters.find((x) => x.url === character);
+
         if (characterObject !== undefined) {
-          console.log(characterObject);
-          heightCmTotal += parseInt(characterObject.height, 10);
           movieCharacterArray.push(characterObject);
         }
       });
 
-      let inches = (heightCmTotal * 0.393700787).toFixed(0);
-      const feet = Math.floor(inches / 12);
-      inches %= 12;
-
-      setHeightTotalText(`${heightCmTotal}cm (${feet}ft / ${inches}in)`);
+      movieCharacterArray =
+        properties.characterFilter === "all"
+          ? movieCharacterArray
+          : movieCharacterArray.filter(
+              (x) => x.gender === properties.characterFilter
+            );
       setMovieCharacters(movieCharacterArray);
+      setHeightTotalText(getCharacterHeights(movieCharacterArray));
     }
-  }, [properties.selectedMovie]);
+  }, [properties.selectedMovie, properties.characterFilter]);
 
   return (
     <Table columns={3} striped>
