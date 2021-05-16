@@ -1,10 +1,8 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import logo from "./logo.png";
 
 function OpeningCrawlSection() {
-  const selectedMovieId = useSelector((state) => state.selectedMovieId);
-
+  const selectedMovieId = 0;
   return (
     <section className="opening-crawl">
       {selectedMovieId === 0 ? (

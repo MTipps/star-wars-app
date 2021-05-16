@@ -1,37 +1,35 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { Dropdown } from "semantic-ui-react";
 
-const dummyData = [
-  {
-    key: "Select a Movie",
-    text: "Select a Movie",
-    value: "0",
-  },
-  {
-    key: "Dummy 1",
-    text: "Dummy 1",
-    value: "1",
-  },
-  {
-    key: "Dummy 2",
-    text: "Dummy 2",
-    value: "2",
-  },
-  {
-    key: "Dummy 3",
-    text: "Dummy 3",
-    value: "3",
-  },
-];
-
 function DropdownSection() {
-  const dispatch = useDispatch();
-  const selectedMovieId = useSelector((state) => state.selectedMovieId);
+  const [loading, setLoading] = React.useState(true);
+  const [movies, setMovies] = React.useState([]);
+  const [selectedMovieId, setSelectedMovieId] = React.useState();
 
-  const handleChange = (event, { value }) => {
-    dispatch({ type: "newMovieId", movieId: value });
-  };
+  React.useEffect(() => {
+    let unmounted = false;
+    async function getMovies() {
+      const response = await fetch("https://swapi.dev/api/films");
+      const body = await response.json();
+      if (!unmounted) {
+        setMovies(
+          body.results.map((movie) => {
+            return {
+              key: movie.episode_id,
+              text: movie.title,
+              value: movie.episode_id,
+            };
+          })
+        );
+        setLoading(false);
+      }
+    }
+    getMovies();
+    return () => {
+      unmounted = true;
+    };
+  }, []);
 
   return (
     <section className="dropdown">
@@ -40,9 +38,10 @@ function DropdownSection() {
         placeholder="Select a movie"
         fluid
         selection
-        defaultValue={selectedMovieId}
-        options={dummyData}
-        onChange={handleChange}
+        options={movies}
+        value={selectedMovieId}
+        onChange={(e) => setSelectedMovieId(e.currentTarget.value)}
+        loading={loading}
       />
     </section>
   );
