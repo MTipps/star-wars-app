@@ -11,9 +11,19 @@ function OpeningCrawlSection(props) {
   return (
     <section className="opening-crawl">
       {properties.selectedMovieId === undefined ? (
-        <Image src={logo} fluid alt="The star wars logo" />
+        <Image
+          src={logo}
+          fluid
+          alt="The star wars logo"
+          size="large"
+          centered
+        />
       ) : (
-        <p>{properties.openingCrawl}</p>
+        <div className="opening-crawl__board">
+          <div className="opening-crawl__text opening-crawl__text-animation">
+            <p>{properties.openingCrawl}</p>
+          </div>
+        </div>
       )}
     </section>
   );
