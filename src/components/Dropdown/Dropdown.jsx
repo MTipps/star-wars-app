@@ -1,6 +1,8 @@
 import React from "react";
 import { Dropdown } from "semantic-ui-react";
 
+import "./Dropdown.css";
+
 function DropdownSection(props) {
   const properties = props;
 
@@ -10,7 +12,9 @@ function DropdownSection(props) {
 
   return (
     <section className="dropdown">
-      <p>Please select a movie from the dropdown for more information</p>
+      <p className="dropdown__text">
+        Please select a movie from the dropdown for more information
+      </p>
       <Dropdown
         placeholder="Select a movie"
         fluid

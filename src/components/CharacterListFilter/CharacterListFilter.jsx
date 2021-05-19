@@ -12,7 +12,7 @@ function CharacterListFilterSection(props) {
 
   return (
     <section className="character-list-filter">
-      <p>Filter characters by:</p>
+      <p className="character-list-filter__text">Filter characters by:</p>
       <div className="character-list-filter__selection">
         <Form>
           <Form.Group widths="equal">

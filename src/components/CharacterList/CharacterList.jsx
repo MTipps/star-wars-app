@@ -75,7 +75,7 @@ function CharacterListSection(props) {
       {movieCharacters.length === 0 ? (
         <p>No Data</p>
       ) : (
-        <Table columns={3} striped>
+        <Table columns={3} striped inverted selectable>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell onClick={sortByName}>Name</Table.HeaderCell>
