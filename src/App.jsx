@@ -1,6 +1,8 @@
 import React from "react";
+import { Container } from "semantic-ui-react";
+
 import "./App.css";
-import HeaderSection from "./components/Header/header";
+
 import DropdownSection from "./components/Dropdown/Dropdown";
 import OpeningCrawlSection from "./components/OpeningCrawl/OpeningCrawl";
 import CharacterListFilterSection from "./components/CharacterListFilter/CharacterListFilter";
@@ -81,26 +83,31 @@ function App() {
 
   return (
     <div className="app-container">
-      <HeaderSection />
-      <DropdownSection
-        loadingState={loading}
-        movies={moviesDropdownObject}
-        selectedMovieId={selectedMovieId}
-        onChange={handleSelectedMovieChange}
-      />
-      <OpeningCrawlSection
-        selectedMovieId={selectedMovieId}
-        openingCrawl={openingCrawl}
-      />
-      <CharacterListFilterSection
-        characterFilter={characterFilter}
-        onChange={handleCharacterFilterChange}
-      />
-      <CharacterListSection
-        charactersObject={charactersObject}
-        selectedMovie={selectedMovie}
-        characterFilter={characterFilter}
-      />
+      <Container fluid>
+        <DropdownSection
+          loadingState={loading}
+          movies={moviesDropdownObject}
+          selectedMovieId={selectedMovieId}
+          onChange={handleSelectedMovieChange}
+        />
+        <OpeningCrawlSection
+          selectedMovieId={selectedMovieId}
+          openingCrawl={openingCrawl}
+        />
+        {selectedMovieId !== undefined && (
+          <div className="characterList">
+            <CharacterListFilterSection
+              characterFilter={characterFilter}
+              onChange={handleCharacterFilterChange}
+            />
+            <CharacterListSection
+              charactersObject={charactersObject}
+              selectedMovie={selectedMovie}
+              characterFilter={characterFilter}
+            />
+          </div>
+        )}
+      </Container>
     </div>
   );
 }
