@@ -13,11 +13,15 @@ function OpeningCrawlSection(props) {
       {properties.selectedMovieId === undefined ? (
         <Image src={logo} alt="The star wars logo" size="large" centered />
       ) : (
-        <div className="opening-crawl__board">
-          <div className="opening-crawl__text opening-crawl__text-animation">
-            <p>{properties.openingCrawl}</p>
-          </div>
-        </div>
+        // eslint-disable-next-line jsx-a11y/no-distracting-elements
+        <marquee
+          behavior="scroll"
+          direction="up"
+          className="opening-crawl__text"
+          height="200"
+        >
+          {properties.openingCrawl}
+        </marquee>
       )}
     </section>
   );
