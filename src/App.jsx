@@ -22,7 +22,7 @@ function App() {
     let unmounted = false;
     async function getMovies() {
       const response = await fetch(
-        "https://jsonp.afeld.me/?callback=?&url=https://swapi.dev/api/films"
+        "https://jsonp.afeld.me/?url=https://swapi.dev/api/films"
       );
       const body = await response.json();
 
@@ -51,7 +51,7 @@ function App() {
 
     async function getCharacters() {
       const response = await fetch(
-        "https://jsonp.afeld.me/?callback=?&url=https://swapi.dev/api/people"
+        "https://jsonp.afeld.me/?url=https://swapi.dev/api/people"
       );
       const body = await response.json();
       if (!unmounted) {
