@@ -1,0 +1,8 @@
+.character-list-filter {
+    margin-top: 3rem;
+}
+
+    .character-list-filter__text,
+    .ui.checkbox input.hidden + label {
+        color: #FFFFFF;
+    }
