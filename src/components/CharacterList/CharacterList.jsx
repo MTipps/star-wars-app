@@ -1,17 +1,52 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Table } from "semantic-ui-react";
 
 function CharacterListSection(props) {
   const properties = props;
-  // const nameSort = "asc";
-  // const genderSort = "asc";
-  // const heightSort = "asc";
-  // let sortBy = {
-  //   column: "",
-  //   order: "",
-  // };
   const [movieCharacters, setMovieCharacters] = React.useState([]);
   const [heightTotalText, setHeightTotalText] = React.useState("");
+  const [nameSortDirection, setNameSortDirection] = React.useState("ascending");
+  const [genderSortDirection, setGenderSortDirection] =
+    React.useState("ascending");
+  const [heightSortDirection, setHeightSortDirection] =
+    React.useState("ascending");
+
+  const changeSortOrder = useCallback(async (columnName) => {
+    let sortedCharacters;
+
+    switch (columnName) {
+      case "name":
+        setNameSortDirection(
+          nameSortDirection === "ascending" ? "descending" : "ascending"
+        );
+        sortedCharacters =
+          nameSortDirection === "ascending"
+            ? movieCharacters.sort((a, b) => (a.name > b.name ? 1 : -1))
+            : movieCharacters.reverse();
+        break;
+      case "gender":
+        setGenderSortDirection(
+          genderSortDirection === "ascending" ? "descending" : "ascending"
+        );
+        sortedCharacters =
+          genderSortDirection === "ascending"
+            ? movieCharacters.sort((a, b) => (a.gender > b.gender ? 1 : -1))
+            : movieCharacters.reverse();
+        break;
+      case "height":
+        setHeightSortDirection(
+          heightSortDirection === "ascending" ? "descending" : "ascending"
+        );
+        sortedCharacters =
+          heightSortDirection === "ascending"
+            ? movieCharacters.sort((a, b) => (a.height > b.height ? 1 : -1))
+            : movieCharacters.reverse();
+        break;
+      default:
+        sortedCharacters = movieCharacters;
+    }
+    setMovieCharacters(sortedCharacters);
+  });
 
   React.useEffect(() => {
     const { selectedMovie } = properties;
@@ -35,10 +70,6 @@ function CharacterListSection(props) {
         : characters.filter((x) => x.gender === properties.characterFilter);
     }
 
-    function sortCharacters(characters) {
-      return characters.sort((a, b) => a.name - b.name);
-    }
-
     if (selectedMovie.characters !== undefined) {
       let movieCharacterArray = [];
 
@@ -51,24 +82,11 @@ function CharacterListSection(props) {
       });
 
       movieCharacterArray = filterCharacters(movieCharacterArray);
-      movieCharacterArray = sortCharacters(movieCharacterArray);
 
       setMovieCharacters(movieCharacterArray);
       setHeightTotalText(getCharacterHeights(movieCharacterArray));
     }
   }, [properties.selectedMovie, properties.characterFilter]);
-
-  function sortByName() {
-    console.log("SortByName");
-  }
-
-  function sortByGender() {
-    console.log("SortByGender");
-  }
-
-  function sortByHeight() {
-    console.log("SortByHeight");
-  }
 
   return (
     <section>
@@ -78,9 +96,15 @@ function CharacterListSection(props) {
         <Table columns={3} striped inverted selectable>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell onClick={sortByName}>Name</Table.HeaderCell>
-              <Table.HeaderCell onClick={sortByGender}>Gender</Table.HeaderCell>
-              <Table.HeaderCell onClick={sortByHeight}>Height</Table.HeaderCell>
+              <Table.HeaderCell onClick={() => changeSortOrder("name")}>
+                Name
+              </Table.HeaderCell>
+              <Table.HeaderCell onClick={() => changeSortOrder("gender")}>
+                Gender
+              </Table.HeaderCell>
+              <Table.HeaderCell onClick={() => changeSortOrder("height")}>
+                Height
+              </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
 
