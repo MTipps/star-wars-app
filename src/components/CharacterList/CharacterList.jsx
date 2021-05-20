@@ -73,7 +73,7 @@ function CharacterListSection(props) {
     if (selectedMovie.characters !== undefined) {
       let movieCharacterArray = [];
 
-      selectedMovie.characters.forEach(function (character) {
+      selectedMovie.characters.forEach(function filterOutUndefined(character) {
         const characterObject = allCharacters.find((x) => x.url === character);
 
         if (characterObject !== undefined) {
@@ -109,9 +109,9 @@ function CharacterListSection(props) {
           </Table.Header>
 
           <Table.Body>
-            {movieCharacters.map(function (character) {
+            {movieCharacters.map(function showEachCharacter(character) {
               return (
-                <Table.Row>
+                <Table.Row key={character.name}>
                   <Table.Cell>{character.name}</Table.Cell>
                   <Table.Cell>{character.gender}</Table.Cell>
                   <Table.Cell>{character.height}</Table.Cell>
